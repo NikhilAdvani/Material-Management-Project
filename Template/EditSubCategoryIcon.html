@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Sub Category Icon</title>
+</head>
+<body>
+<form action="/saveeditsubcategoryicon" method="post" enctype="multipart/form-data">{% csrf_token %}
+<input type="hidden" name="scatid" value="{{ row.0 }}" />
+<input type="hidden" name="oldicon" value="{{ row.2 }}" />
+    <center>
+      <h3>Edit Sub-Category Icon</h3>
+       <h4>{{ row.1 }}</h4>
+    <div>
+        <img src="/static/{{ row.2 }}" width="20%"/>
+    </div>
+    <div>
+        <b>Select image you want to replace:</b>
+    </div>
+    <div>
+
+        <input type="file" required name="icon" />
+        <input type="Submit" value="Save Icon">
+
+    </div>
+
+</center>
+</form>
+
+</body>
+</html>

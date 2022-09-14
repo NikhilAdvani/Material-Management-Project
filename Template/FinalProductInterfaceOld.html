@@ -1,0 +1,134 @@
+<style type="text/css">
+    .root{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dfe6e9;
+        padding:20px;
+    }
+
+    .myframe{
+        width:600px;
+        background-color: #fff;
+        padding:20px;
+        border-radius: 15px;
+    }
+
+    .gap{
+        margin-top:10px;
+    }
+
+    .btnstyle{
+        display:flex; justify-content:center; align-items:center;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/static/JavaScript/finalproduct.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Material Management[FinalProduct]</title>
+</head>
+<body style="background:#dfe6e9;">
+<form action="/finalproductsubmit" method="post" enctype="multipart/form-data"> {% csrf_token %}
+ <div class="root">
+  <div class="myframe">
+      <div class="row" style="display:flex; align-items:center; font-size:14px; letter-spacing: 2px; font-weight:bold; padding-left: 20px; margin-bottom: 10px">
+          <img src="/static/employee.png" width="30">
+          Select Final Product
+      </div>
+
+      <div class="row">
+          <div class="col">
+              <select name="categoryid" id="categoryid" class="form-control">
+                  <option>-Category-</option>
+              </select>
+          </div>
+          <div class="col">
+              <select name="subcategoryid" id="subcategoryid" class="form-control">
+                  <option>-Sub-Category-</option>
+              </select>
+          </div>
+          <div class="col">
+              <select name="productid" id="productid" class="form-control">
+                  <option>-Product-</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" name="finalproductname" class="form-control" placeholder="Final Product Name">
+          </div>
+          <div class="col">
+              <input type="text" class="form-control" name="color" placeholder="Color">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <select name="sizeunit" class="form-control">
+                  <option>size_unit</option>
+                  <option>inches</option>
+                  <option>centimeters</option>
+              </select>
+          </div>
+          <div class="col">
+              <input type="text" name="size" class="form-control" placeholder="Size">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <select name="weightunit" class="form-control">
+                  <option>weight_unit</option>
+                  <option>grams</option>
+                  <option>oz</option>
+              </select>
+          </div>
+          <div class="col">
+              <input type="text" name="weight" class="form-control" placeholder="Weight">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" name="price" class="form-control" placeholder="Price">
+          </div>
+          <div class="col">
+              <input type="text" name="stock" value="0" class="form-control" placeholder="Stock">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col btnstyle">
+              <input type="file" accept="image/*" id="finalproductpicture" name="finalproductpicture" class="form-control" placeholder="Picture">
+              &nbsp;<img src="/static/nocategoryimg.png" id="fpic" width="40">
+          </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" >
+                   <button type="submit" class="btn btn-primary w-100" >Save</button>
+               </div>
+
+               <div class="col btnstyle">
+                   <button type="reset" class="btn btn-primary w-100" >Reset</button>
+               </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" style="font-size:18px; font-weight:bold;" >
+                   {{ msg }}
+               </div>
+      </div>
+
+
+  </div>
+ </div>
+</form>
+</body>
+</html>

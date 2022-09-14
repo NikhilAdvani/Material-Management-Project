@@ -1,0 +1,78 @@
+<style type="text/css">
+    .root{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #dfe6e9;
+        padding:20px;
+    }
+
+    .myframe{
+        width:600px;
+        background-color: #fff;
+        padding:20px;
+        border-radius: 15px;
+    }
+
+    .gap{
+        margin-top:10px;
+    }
+
+    .btnstyle{
+        display:flex; justify-content:center; align-items:center;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/static/JavaScript/project.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Material Management[Category]</title>
+</head>
+<body style="background:#dfe6e9;">
+<form action="/updatecategoryrecord">
+ <input type="hidden" value="{{ row.0 }}" name="catid">
+ <div class="root">
+  <div class="myframe">
+      <div class="row" style="display:flex; align-items:center; font-size:14px; letter-spacing: 2px; font-weight:bold; padding-left: 20px; margin-bottom: 10px">
+          <img src="/static/employee.png" width="30">
+          Category Update
+      </div>
+
+      <div class="row">
+          <div class="col">
+              <input type="text" value="{{ row.1 }}" name="categoryname" class="form-control" placeholder="Category Name">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col btnstyle" style="flex-direction:row;">
+              &nbsp;<img src="/static/{{ row.2 }}" width="40">
+          </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" >
+                   <button type="submit" name="btn" value="Edit" class="btn btn-primary w-100" >Edit</button>
+               </div>
+
+               <div class="col btnstyle">
+                   <button type="submit" name="btn" value="Delete" class="btn btn-primary w-100" >Delete</button>
+               </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" style="font-size:18px; font-weight:bold;" >
+                   {{ msg }}
+               </div>
+      </div>
+
+
+  </div>
+ </div>
+</form>
+</body>
+</html>

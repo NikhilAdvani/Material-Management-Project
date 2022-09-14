@@ -1,0 +1,146 @@
+<style type="text/css">
+ .root{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   background-color: #dfe6e9;
+   padding: 20px;
+ }
+ .myframe{
+   width:70%;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+  }
+ .gap{
+margin-top: 10px;
+}
+ .btnstyle{
+display: flex;justify-content:center;align-items:center;
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Material Management[Category]</title>
+</head>
+<body>
+<div class="root">
+   <div class="myframe">
+     <div class="row" style=" display:flex;align-items:center;font-size:14px;letter-spacing:2px;font-weight: bold; padding-left: 20px;margin-bottom: 10px;">
+         List of Categories
+     </div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Category ID</th>
+      <th>Category Name</th>
+      <th>Icon</th>
+      <th>Update</th>
+    </tr>
+  </thead>
+  <tbody>
+     {%  for row in rows %}
+     <tr>
+      <th scope="row">{{ row.0 }}</th>
+      <td>{{ row.1 }}</td>
+      <td><a href="/editcategoryicon?catid={{ row.0 }}&categoryname={{ row.1 }}&icon={{ row.2 }}"><img src="/static/{{ row.2 }}" width="40"></a></td>
+      <td><a class = "button is-primary modal-button"  data="{{ row }}" data-target = "#modal">Edit/Delete</a></td>
+    </tr>
+
+     {% endfor %}
+  </tbody>
+</table>
+   </div>
+</div>
+
+<div id="modal" class="modal">
+    <div class = "modal-background"></div>
+               <div class = "modal-content" style="background:#dfe6e9;border-radius:10px;width:600px;">
+               <body style="background:#dfe6e9;">
+                <form action="/updatecategoryrecord">
+ <input type="hidden" id="catid" name="catid">
+ <div class="root">
+  <div class="myframe">
+      <div class="row" style="display:flex; align-items:center; font-size:14px; letter-spacing: 2px; font-weight:bold; padding-left: 20px; margin-bottom: 10px">
+          <img src="/static/employee.png" width="30">
+          Category Update
+      </div>
+
+      <div class="row">
+          <div class="col">
+              <input type="text" id="categoryname" name="categoryname" class="form-control" placeholder="Category Name">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col btnstyle" style="display:flex; align-item:center;justify-content: center;">
+              &nbsp;<img id="pic" name="pic" width="50">
+          </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" >
+                   <button type="submit" name="btn" value="Edit" class="btn btn-primary w-100" >Edit</button>
+               </div>
+
+               <div class="col btnstyle">
+                   <button type="submit" name="btn" value="Delete" class="btn btn-primary w-100" >Delete</button>
+               </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" style="font-size:18px; font-weight:bold;" >
+                   {{ msg }}
+               </div>
+      </div>
+
+
+  </div>
+ </div>
+</form>
+               </body>
+
+                </div>
+                <button class = "modal-close is-large" aria-label = "close"></button>
+               </div>
+<script>
+
+        function setData(data){
+         data = data.replace("(","")
+         data = data.replace(")","")
+         data = data.replaceAll("'","")
+         data = data.split(",")
+         return data    }
+
+         $(".modal-button").click(function() {
+            var target = $(this).data("target");
+            var data=$(this).attr('data')
+
+            data = setData(data)
+
+            $('#catid').val(data[0].trim())
+            $('#categoryname').val(data[1].trim())
+            $('#pic').attr('src','/static/'+(data[2].trim()))
+
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+         });
+
+         $(".modal-close").click(function() {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+         });
+</script>
+
+</body>
+</html>

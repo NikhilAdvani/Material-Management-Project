@@ -1,0 +1,73 @@
+<style type="text/css">
+ .root{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   background-color: #dfe6e9;
+   padding: 20px;
+ }
+ .myframe{
+   width:90%;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+  }
+  .gap{
+    margin-top: 10px;
+}
+ .btnstyle{
+    display: flex;justify-content:center;align-items:center;
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Material Management</title>
+</head>
+<body>
+<div class="root">
+   <div class="myframe">
+     <div class="row" style=" display:flex;align-items:center;font-size:14px;letter-spacing:2px;font-weight: bold; padding-left: 20px;margin-bottom: 10px;">
+         <img src="/static/employee.png" width="30">
+         List of Employees
+     </div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Name</th>
+      <th>Date Of Birth</th>
+      <th>Permanent<br>Address</th>
+      <th>Current<br>Address</th>
+      <th>Contact<br>Details</th>
+      <th>Photograph</th>
+      <th>Update</th>
+    </tr>
+  </thead>
+  <tbody>
+     {%  for row in rows %}
+     <tr>
+      <th scope="row">{{ row.0 }}</th>
+      <td>{{ row.1 }} {{ row.2 }}<br>{{ row.3 }}</td>
+      <td>{{ row.4 }}</td>
+      <td>{{ row.5 }}<br>
+      {{ row.14 }},{{ row.15 }}</td>
+      <td>{{ row.8 }}</td>
+      <td>{{ row.10 }}<br>{{ row.9 }}</td>
+      <td><a href="/editemployeepicture?empid={{ row.0 }}&firstname={{ row.1 }}&lastname={{ row.2 }}&picture={{ row.12 }}"><img src="/static/{{ row.12 }}" width="40"></a><br>{{ row.11 }}</td>
+      <td><a href="/displayemployeebyid?empid={{ row.0 }}">Edit/Delete</a></td>
+    </tr>
+
+     {% endfor %}
+  </tbody>
+</table>
+   </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<style type="text/css">
+ .root{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   background-color: #dfe6e9;
+   padding: 20px;
+ }
+ .myframe{
+   width:90%;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+  }
+  .gap{
+    margin-top: 10px;
+}
+ .btnstyle{
+    display: flex;justify-content:center;align-items:center;
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/static/JavaScript/subcategories.js"></script>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Material Management[Products]</title>
+</head>
+<body>
+<div class="root">
+   <div class="myframe">
+     <div class="row" style=" display:flex;align-items:center;font-size:14px;letter-spacing:2px;font-weight: bold; padding-left: 20px;margin-bottom: 10px;">
+         List of Products
+     </div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Sub-Category ID</th>
+      <th>Product ID</th>
+      <th>Product Name</th>
+      <th>Description</th>
+      <th>GST Applicable</th>
+      <th>Picture</th>
+      <th>Update</th>
+    </tr>
+  </thead>
+  <tbody>
+     {%  for row in rows %}
+     <tr>
+      <th scope="row">{{ row.0 }}/{{ row.7 }}</th>
+      <td>{{ row.1 }}/{{ row.8 }}</td>
+      <td>{{ row.2 }}</td>
+      <td>{{ row.3 }}</td>
+      <td>{{ row.4 }}</td>
+      <td>{{ row.5 }}</td>
+      <td><a href="/editproductpicture?pid={{ row.2 }}&productname={{ row.3 }}&picture={{ row.6 }}"><img src="/static/{{ row.6 }}" width="40"></a><td>
+      <td><a class = "button is-primary modal-button"  data="{{ row }}" data-target = "#modal">Edit/Delete</a></td>
+    </tr>
+
+     {% endfor %}
+  </tbody>
+</table>
+   </div>
+</div>
+</body>
+<div id="modal" class="modal">
+    <div class = "modal-background"></div>
+    <div class = "modal-content" style="background:#dfe6e9;border-radius:10px;width:600px;">
+               <body style="background:#dfe6e9;">
+<form action="/updateproductrecord">
+<input type="hidden" value="{{ row.2 }}" id="pid" name="pid">
+ <div class="root">
+  <div class="myframe">
+      <div class="row" style="display:flex; align-items:center; font-size:14px; letter-spacing: 2px; font-weight:bold; padding-left: 20px; margin-bottom: 10px">
+          Update Product
+      </div>
+
+      <div class="row">
+          <div class="col">
+              <select id="categoryid" name="categoryid" class="form-control">
+                  <option>-Category-</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <select id="subcategoryid"  name="subcategoryid" class="form-control">
+                  <option>-Subcategory-</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" id="productname" value="{{ row.3 }}" name="productname" class="form-control" placeholder="Product Name">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" id="description" value="{{ row.4 }}" name="description" class="form-control" placeholder="Description">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" id="gst" value="{{ row.5 }}" name="gst" class="form-control" placeholder="GST">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col btnstyle" style="flex-direction:row;">
+              <img src="/static/{{ row.6 }}" id="pic4" width="40">
+          </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" >
+                   <button type="submit" name="btn" value="Edit" class="btn btn-primary w-100" >Edit</button>
+               </div>
+
+               <div class="col btnstyle">
+                   <button type="submit" name="btn" value="Delete" class="btn btn-primary w-100" >Delete</button>
+               </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" style="font-size:18px; font-weight:bold;" >
+                   {{ msg }}
+               </div>
+      </div>
+
+
+  </div>
+ </div>
+</form>
+</body>
+               </div>
+    <button class = "modal-close is-large" aria-label = "close"></button>
+</div>
+<script>
+
+        function setData(data){
+         data = data.replace("(","")
+         data = data.replace(")","")
+         data = data.replaceAll("'","")
+         data = data.split(",")
+         return data    }
+
+         $(".modal-button").click(function() {
+            var target = $(this).data("target");
+            var data=$(this).attr('data')
+
+            data = setData(data)
+
+            $('#categoryid').val(data[0].trim())
+            $('#subcategoryid').append($('<option>').text(data[8]).val(data[1]))
+            $('#pid').val(data[2].trim())
+            $('#productname').val(data[3].trim())
+            $('#description').val(data[4].trim())
+            $('#gst').val(data[5].trim())
+            $('#pic4').attr('src','/static/'+(data[6].trim()))
+
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+         });
+
+         $(".modal-close").click(function() {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+         });
+</script>
+</html>

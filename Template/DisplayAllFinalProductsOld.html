@@ -1,0 +1,230 @@
+<style type="text/css">
+ .root{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   background-color: #dfe6e9;
+   padding: 20px;
+ }
+ .myframe{
+   width:90%;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+  }
+  .gap{
+    margin-top: 10px;
+}
+ .btnstyle{
+    display: flex;justify-content:center;align-items:center;
+}
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/static/JavaScript/finalproduct.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Material Management[FinalProducts]</title>
+</head>
+<body>
+<div class="root">
+   <div class="myframe">
+     <div class="row" style=" display:flex;align-items:center;font-size:14px;letter-spacing:2px;font-weight: bold; padding-left: 20px;margin-bottom: 10px;">
+         List of Products
+     </div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Sub-Category</th>
+      <th>Product</th>
+      <th>Final Product Id</th>
+      <th>Final Product Name</th>
+      <th>Size</th>
+      <th>Weight</th>
+      <th>Color</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Picture</th>
+      <th>Update</th>
+    </tr>
+  </thead>
+  <tbody>
+     {%  for row in rows %}
+     <tr>
+      <th scope="row">{{ row.0 }}/{{ row.13 }}</th>
+      <td>{{ row.1 }}/{{ row.14 }}</td>
+      <td>{{ row.2 }}/{{ row.15 }}</td>
+      <td>{{ row.3 }}</td>
+      <td>{{ row.4 }}</td>
+      <td>{{ row.5 }} {{ row.6 }}</td>
+      <td>{{ row.7 }} {{ row.8 }}</td>
+      <td>{{ row.9 }}</td>
+      <td>{{ row.10 }}</td>
+      <td>{{ row.11 }}</td>
+      <td><a href="/editfinalproductpicture?fpid={{ row.3 }}&finalproductname={{ row.4 }}&picture={{ row.12 }}"><img src="/static/{{ row.12 }}" width="40"></a></td>
+      <td><a class = "button is-primary modal-button"  data="{{ row }}" data-target = "#modal">Edit/Delete</a></td>
+    </tr>
+
+     {% endfor %}
+  </tbody>
+</table>
+   </div>
+</div>
+</body>
+<div id="modal" class="modal">
+    <div class = "modal-background"></div>
+    <div class = "modal-content" style="background:#dfe6e9;border-radius:10px;width:600px;">
+               <body style="background:#dfe6e9;">
+               <form action="/updatefinalproductrecord">
+<input type="hidden" value="{{ row.3 }}" id="fpid" name="fpid">
+ <div class="root">
+  <div class="myframe">
+      <div class="row" style="display:flex; align-items:center; font-size:14px; letter-spacing: 2px; font-weight:bold; padding-left: 20px; margin-bottom: 10px">
+          Update Final Product
+      </div>
+
+      <div class="row">
+          <div class="col">
+              <select name="categoryid" id="categoryid" class="form-control">
+                  <option>-Category-</option>
+              </select>
+          </div>
+          <div class="col">
+              <select name="subcategoryid" id="subcategoryid" class="form-control">
+                  <option>-Sub-Category-</option>
+              </select>
+          </div>
+          <div class="col">
+              <select name="productid" id="productid" class="form-control">
+                  <option>-Product-</option>
+              </select>
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" id="finalproductname" value="{{ row.4 }}" name="finalproductname" class="form-control" placeholder="Final Product Name">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" value="{{ row.6 }}" id="sizeunit" name="sizeunit" class="form-control" placeholder="Size Unit">
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col">
+              <input type="text" value="{{ row.5 }}" id="size" name="size" class="form-control" placeholder="Size">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" value="{{ row.8 }}" id="weightunit" name="weightunit" class="form-control" placeholder="Weight Unit">
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col">
+              <input type="text" value="{{ row.7 }}" id="weight" name="weight" class="form-control" placeholder="Weight">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" value="{{ row.9 }}" id="color" name="color" class="form-control" placeholder="Color">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" value="{{ row.10 }}" id="price" name="price" class="form-control" placeholder="Price">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col">
+              <input type="text" value="{{ row.11 }}" id="stock" name="stock" class="form-control" placeholder="Stock">
+          </div>
+      </div>
+
+      <div class="row gap">
+          <div class="col btnstyle" style="flex-direction:row;">
+              <img src="/static/{{ row.12 }}" id="fpic" width="40">
+          </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" >
+                   <button type="submit" name="btn" value="Edit" class="btn btn-primary w-100" >Edit</button>
+               </div>
+
+               <div class="col btnstyle">
+                   <button type="submit" name="btn" value="Delete" class="btn btn-primary w-100" >Delete</button>
+               </div>
+      </div>
+
+      <div class="row gap">
+               <div class="col btnstyle" style="font-size:18px; font-weight:bold;" >
+                   {{ msg }}
+               </div>
+      </div>
+
+
+  </div>
+ </div>
+</form>
+               </body>
+    </div>
+        <button class = "modal-close is-large" aria-label = "close"></button>
+</div>
+
+<script>
+
+        function setData(data){
+         data = data.replace("(","")
+         data = data.replace(")","")
+         data = data.replaceAll("'","")
+         data = data.split(",")
+         return data    }
+
+         $(".modal-button").click(function() {
+            var target = $(this).data("target");
+            var data=$(this).attr('data')
+
+            data = setData(data)
+
+            $('#categoryid').val(data[0].trim())
+            $('#subcategoryid').append($('<option>').text(data[14]).val(data[1]))
+            $('#productid').append($('<option>').text(data[15]).val(data[2]))
+            $('#fpid').val(data[3].trim())
+            $('#finalproductname').val(data[4].trim())
+            $('#size').val(data[5].trim())
+            $('#sizeunit').val(data[6].trim())
+            $('#weight').val(data[7].trim())
+            $('#weightunit').val(data[8].trim())
+            $('#color').val(data[9].trim())
+            $('#price').val(data[10].trim())
+            $('#stock').val(data[11].trim())
+            $('#fpic').attr('src','/static/'+(data[12].trim()))
+
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+         });
+
+         $(".modal-close").click(function() {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+         });
+</script>
+
+</html>

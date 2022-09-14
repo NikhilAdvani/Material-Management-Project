@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Employee Picture</title>
+</head>
+<body>
+<form action="/saveeditpicture" method="post" enctype="multipart/form-data">{% csrf_token %}
+<input type="hidden" name="empid" value="{{ row.0 }}" />
+<input type="hidden" name="oldpicture" value="{{ row.3 }}" />
+    <center>
+      <h3>Edit Employee Picture</h3>
+       <h4>{{ row.1 }} {{ row.2 }}</h4>
+    <div>
+        <img src="/static/{{ row.3 }}" width="20%"/>
+    </div>
+    <div>
+        <b>Select image you want to replace:</b>
+    </div>
+    <div>
+
+        <input type="file" required name="picture" />
+        <input type="Submit" value="Save Picture">
+
+    </div>
+
+</center>
+</form>
+
+</body>
+</html>
